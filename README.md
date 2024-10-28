@@ -31,9 +31,19 @@ This Terraform module creates CloudWatch Log Metric Filters and associated Alarm
 
 ## Simple Example
 ```hcl
-module "aws_monitoring_rds" {
+# database type: `instance`
+module "aws_monitoring_rds_instance" {
   source                         = "path/to/module"
-  rds_db_identifiers             = ["db-instance-identifier-1", "db-cluster-identifier-1"]
+  rds_db_identifiers             = ["acme-database-1"]
+  cw_log_group_name              = "the-cloudtrail-log-group"
+  cw_metric_filter_alarm_actions = ["arn:aws:sns:region:account-id:sns-topic"]
+}
+
+# database type: `cluster`
+module "aws_monitoring_rds_cluster" {
+  source                         = "path/to/module"
+  rds_db_identifiers             = ["acme-database-1"]
+  rds_db_type                    = "cluster"
   cw_log_group_name              = "the-cloudtrail-log-group"
   cw_metric_filter_alarm_actions = ["arn:aws:sns:region:account-id:sns-topic"]
 }
@@ -41,11 +51,27 @@ module "aws_monitoring_rds" {
 
 ## Advanced Example
 ```hcl
+# database type: `instance`
 module "aws_monitoring_rds" {
   source                                     = "path/to/module"
-  rds_db_identifiers                         = ["db-instance-identifier-1", "db-cluster-identifier-1"]
-  rds_db_type                                = "cluster"
+  rds_db_identifiers                         = ["acme-database-1"]
   rds_db_instance_events                     = ["DeleteDBInstance", "ModifyDBInstance"]
+  cw_log_group_name                          = "the-cloudtrail-log-group"
+  cw_metric_filter_namespace                 = "RDS/Monitoring"
+  cw_metric_filter_value                     = "1"
+  cw_metric_filter_alarm_comparison_operator = "GreaterThanOrEqualToThreshold"
+  cw_metric_filter_alarm_evaluation_periods  = 1
+  cw_metric_filter_alarm_period              = 300
+  cw_metric_filter_alarm_statistic           = "Sum"
+  cw_metric_filter_alarm_threshold           = 1
+  cw_metric_filter_alarm_actions             = ["arn:aws:sns:region:account-id:sns-topic"]
+}
+
+# database type: `cluster`
+module "aws_monitoring_rds" {
+  source                                     = "path/to/module"
+  rds_db_identifiers                         = ["acme-database-1"]
+  rds_db_type                                = "cluster"
   rds_db_cluster_events                      = ["CreateDBCluster", "DeleteDBCluster"]
   cw_log_group_name                          = "the-cloudtrail-log-group"
   cw_metric_filter_namespace                 = "RDS/Monitoring"
