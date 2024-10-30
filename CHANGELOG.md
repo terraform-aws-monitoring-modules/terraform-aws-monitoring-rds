@@ -1,5 +1,9 @@
 # Changelog
+## [1.0.1] - 2024-10-30
 
+### Changed
+ - Advanced example in [`README.md`](README.md) now uses the correct source.
+ 
 ## [1.0.0] - 2024-10-30
 
 ### Added

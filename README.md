@@ -5,7 +5,7 @@
 <h1 align="center">Relational Database Service (RDS)</h1>
 
 <p align="center">
-  <a href="https://github.com/terraform-trailwatch-modules/terraform-trailwatch-rds/releases" title="Releases"><img src="https://img.shields.io/badge/Release-1.0.0-1d1d1d?style=for-the-badge" alt="Releases"></a>
+  <a href="https://github.com/terraform-trailwatch-modules/terraform-trailwatch-rds/releases" title="Releases"><img src="https://img.shields.io/badge/Release-1.0.1-1d1d1d?style=for-the-badge" alt="Releases"></a>
   <a href="https://github.com/terraform-trailwatch-modules/terraform-trailwatch-rds/blob/main/LICENSE" title="License"><img src="https://img.shields.io/badge/License-MIT-1d1d1d?style=for-the-badge" alt="License"></a>
 </p>
 
@@ -68,7 +68,7 @@ module "terraform_trailwatch_rds" {
 ```hcl
 # database type: `instance`
 module "aws_monitoring_rds" {
-  source                                     = "path/to/module"
+  source                                     = "terraform-trailwatch-modules/rds/aws"
   rds_db_identifiers                         = ["acme-database-1"]
   rds_db_instance_events                     = ["DeleteDBInstance", "ModifyDBInstance"]
   cw_log_group_name                          = "the-cloudtrail-log-group"
@@ -84,7 +84,7 @@ module "aws_monitoring_rds" {
 
 # database type: `cluster`
 module "aws_monitoring_rds" {
-  source                                     = "path/to/module"
+  source                                     = "terraform-trailwatch-modules/rds/aws"
   rds_db_identifiers                         = ["acme-database-1"]
   rds_db_type                                = "cluster"
   rds_db_cluster_events                      = ["CreateDBCluster", "DeleteDBCluster"]
