@@ -1,4 +1,15 @@
-# aws-monitoring-rds
+<p align="center">
+  <a href="https://github.com/terraform-trailwatch-modules" title="Terraform Trailwatch Modules"><img src="https://raw.githubusercontent.com/terraform-trailwatch-modules/art/refs/heads/main/logo.jpg" height="100" alt="Terraform Trailwatch Modules"></a>
+</p>
+
+<h1 align="center">Relational Database Service (RDS)</h1>
+
+<p align="center">
+  <a href="https://github.com/terraform-trailwatch-modules/terraform-trailwatch-rds/releases" title="Releases"><img src="https://img.shields.io/badge/Release-1.0.1-1d1d1d?style=for-the-badge" alt="Releases"></a>
+  <a href="https://github.com/terraform-trailwatch-modules/terraform-trailwatch-rds/blob/main/LICENSE" title="License"><img src="https://img.shields.io/badge/License-MIT-1d1d1d?style=for-the-badge" alt="License"></a>
+</p>
+
+## About
 This Terraform module creates CloudWatch Log Metric Filters and associated Alarms for monitoring Amazon RDS instances and clusters based on specified event names. It helps ensure that critical changes to RDS resources are monitored effectively and alerts are sent to a pre-existing SNS topic.
 
 ## Features
@@ -32,16 +43,16 @@ This Terraform module creates CloudWatch Log Metric Filters and associated Alarm
 ## Simple Example
 ```hcl
 # database type: `instance`
-module "aws_monitoring_rds_instance" {
-  source                         = "path/to/module"
+module "terraform_trailwatch_rds" {
+  source                         = "terraform-trailwatch-modules/rds/trailwatch"
   rds_db_identifiers             = ["acme-database-1"]
   cw_log_group_name              = "the-cloudtrail-log-group"
   cw_metric_filter_alarm_actions = ["arn:aws:sns:region:account-id:sns-topic"]
 }
 
 # database type: `cluster`
-module "aws_monitoring_rds_cluster" {
-  source                         = "path/to/module"
+module "terraform_trailwatch_rds" {
+  source                         = "terraform-trailwatch-modules/rds/trailwatch"
   rds_db_identifiers             = ["acme-database-1"]
   rds_db_type                    = "cluster"
   cw_log_group_name              = "the-cloudtrail-log-group"
